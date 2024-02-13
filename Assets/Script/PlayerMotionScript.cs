@@ -27,7 +27,6 @@ public class PlayerMotionScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
        
         startPos = transform.position;
-        startCameraPos = Camera.main.transform.forward;
     }
  
     void Update()
