@@ -11,7 +11,7 @@ public class DeadZoneScript : MonoBehaviour
         // それ以外のオブジェクトは破壊する
         if(other.CompareTag("Player"))
         {
-            PlayerMotionScript player = other.gameObject.GetComponent<PlayerMotionScript>();
+            PlayerScript player = other.gameObject.GetComponent<PlayerScript>();
             player.Respawn(); 
         }
         else

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class PlayerMotionScript : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     CharacterController con;
     Animator anim;
