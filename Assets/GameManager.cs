@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public enum GameState {
-        Opening, // Unused yet
-        Playing,
-        Gameover
-    }
-
     // 現在のGameState
     public GameState currentState = GameState.Opening;
     // Player_Unitychan
@@ -19,7 +14,14 @@ public class GameManager : MonoBehaviour
     public GameObject balloon;
     // 照準（AimMarker.png）のPrefab
     public GameObject aimMarker;
+    public TextMeshProUGUI bounceText;
+    public TextMeshProUGUI dropText;
+
     public int MaxBalloons = 3; // Number of balloons to spawn
+
+    // 下の変数から制御するので非公開変数
+    private int bounceCount; // Bouncesで表示されるバウンス回数
+    private int droppedCount; // Droppedで表示される落下回数
 
     // インスタンスをGameManager.csで管理し、全てのballonInstanceについて一元管理でaimMarkerが追従できるようにする
     private GameObject[] balloonInstances;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player_unitychan");
         balloon = GameObject.Find("BalloonSphere");
         aimMarker = GameObject.Find("AimMarker");
+        // bounceText = GameObject.Find("Bouncetext (TMP)");
 
         
         // Instantiate balloons and aim markers
@@ -63,6 +66,21 @@ public class GameManager : MonoBehaviour
                 Vector3 balloonPosition = balloonInstances[i].transform.position;
                 aimMarkerInstances[i].transform.position = new Vector3(balloonPosition.x, aimMarkerInstances[i].transform.position.y, balloonPosition.z);
             }
+        }
+    }
+
+    public void addBounce()
+    {
+        bounceCount += 1;
+        bounceText.text = $"Bounce : {bounceCount}";
+    }
+
+    public void addDropped()
+    {
+        droppedCount += 1;
+        dropText.text = $"Dropped : {droppedCount}";
+        if (droppedCount > 2) {
+            dropText.color = new Color(0.9f, 0.2f, 0.2f, 1.0f);
         }
     }
 

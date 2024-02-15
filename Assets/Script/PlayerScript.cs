@@ -7,6 +7,9 @@ public class PlayerScript : MonoBehaviour
 {
     CharacterController con;
     Animator anim;
+
+    GameObject gameMgrObj;
+    GameManager gameMgr;
  
     float normalSpeed = 3f; // 通常時の移動速度
     float sprintSpeed = 5f; // ダッシュ時の移動速度
@@ -21,6 +24,8 @@ public class PlayerScript : MonoBehaviour
     {
         con = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        gameMgrObj = GameObject.Find ("GameManager");
+        gameMgr = gameMgrObj.GetComponent<GameManager>();
  
         // マウスカーソルを非表示にし、位置を固定
         Cursor.visible = false;
@@ -31,6 +36,10 @@ public class PlayerScript : MonoBehaviour
  
     void Update()
     {
+        // Debug.Log(gameMgr);
+        if (gameMgr.currentState == GameState.GameOver) {
+            return; // ゲームオーバーのときにフリーズする
+        }
         // 移動速度を取得
         float speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : normalSpeed;
          
