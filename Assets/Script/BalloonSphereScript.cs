@@ -10,6 +10,9 @@ public class BalloonSphereScript : MonoBehaviour
     GameObject gameMgrObj;
     GameManager gameMgr;
 
+    public float xForce;
+    public float zForce;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +31,34 @@ public class BalloonSphereScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Player_unitychan") {
+        if (collision.gameObject.name == "Player_unitychan" && collision.gameObject.transform.position.y < this.transform.position.y) 
+        {
             // Bounce回数を一つ増やす
             gameMgr.addBounce();
+        }
+        else if(collision.gameObject.name == "EdgeWall-N") // EdgeWall-N collision
+        {
+            xForce = Random.Range(-1,1);
+            rb.velocity = Vector3.zero;
+            rb.AddForce(xForce, 0, -2, ForceMode.VelocityChange);
+        }
+        else if(collision.gameObject.name == "EdgeWall-S") // EdgeWall-S collision
+        {
+            xForce = Random.Range(-1,1);
+            rb.velocity = Vector3.zero;
+            rb.AddForce(xForce, 0, 2, ForceMode.VelocityChange);
+        }
+        else if(collision.gameObject.name == "EdgeWall-E") // EdgeWall-E collision
+        {
+            zForce = Random.Range(-1,1);
+            rb.velocity = Vector3.zero;
+            rb.AddForce(-2, 0, zForce, ForceMode.VelocityChange);
+        }
+        else if(collision.gameObject.name == "EdgeWall-W") // EdgeWall-W collision
+        {
+            zForce = Random.Range(-1,1);
+            rb.velocity = Vector3.zero;
+            rb.AddForce(2, 0, zForce, ForceMode.VelocityChange);
         } else {
             // Bounce回数を一つ増やす
             gameMgr.addDropped();

@@ -12,7 +12,7 @@ public class PlayerScript : MonoBehaviour
     GameManager gameMgr;
  
     float normalSpeed = 3f; // 通常時の移動速度
-    float sprintSpeed = 5f; // ダッシュ時の移動速度
+    float sprintSpeed = 7f; // ダッシュ時の移動速度
     float jump = 8f;        // ジャンプ力
     float gravity = 10f;    // 重力の大きさ
  
